@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue";
-import { downloadFiles } from "./utils/downloadFiles";
+import { saveFiles } from "./utils/saveFiles";
 import { resizeImageFile } from "./utils/resizeImage";
 
 const width = ref(100);
@@ -68,7 +68,7 @@ async function downloadImages() {
 
   isDownloading.value = true;
   try {
-    await downloadFiles(imagePreviews.value.map((preview) => preview.file));
+    await saveFiles(imagePreviews.value.map((preview) => preview.file));
   } catch (error) {
     const message = error instanceof Error ? error.message : "图片下载失败";
     window.alert(message);
