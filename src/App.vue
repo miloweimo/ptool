@@ -77,6 +77,11 @@ async function downloadImages() {
   }
 }
 
+async function handleSaveImages() {
+  await resizeImages();
+  await downloadImages();
+}
+
 function clearImages() {
   revokePreviews(imagePreviews.value);
   imagePreviews.value = [];
@@ -113,19 +118,19 @@ onUnmounted(() => {
             <label for="height">高度</label><input type="number" id="height" v-model="height" class="border border-gray-300 rounded-md p-2 w-24"/>px
           </div>
           <button
-            @click="resizeImages"
+            @click="handleSaveImages"
             class="btn"
-            :disabled="!imagePreviews.length || isResizing"
+            :disabled="!imagePreviews.length || isResizing || isDownloading"
           >
-            {{ isResizing ? "处理中..." : "修改大小" }}
+            {{ isResizing ? "处理中..." : "保存" }}
           </button>
-          <button
+          <!-- <button
             @click="downloadImages"
             class="btn"
             :disabled="!imagePreviews.length || isResizing || isDownloading"
           >
-            {{ isDownloading ? "打包中..." : "下载图片" }}
-          </button>
+            {{ isDownloading ? "打包中..." : "保存图片" }}
+          </button> -->
         </div>
       <div>
         <input
