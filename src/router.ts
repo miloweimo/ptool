@@ -5,11 +5,17 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      meta: {
+        title: "首页",
+      },
       redirect: "/resize-image",
     },
     {
       path: "/resize-image",
       name: "resize-image",
+      meta: {
+        title: "图片压缩",
+      },
       component: () => import("./modules/resize-image/IndexPage.vue"),
     },
   ],

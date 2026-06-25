@@ -1,10 +1,14 @@
 <template>
   <nav>
-    <router-link to="/">首页</router-link>
-    <router-link to="/resize-image">图片压缩</router-link>
+    <router-link v-for="route in routes" :key="route.path" :to="route.path">{{ route.meta.title }}</router-link>
   </nav>
   <router-view />
 </template>
+
+<script setup lang="ts">
+import { useRouter } from "vue-router";
+const routes = useRouter().getRoutes();
+</script>
 
 <style scoped>
 nav {
