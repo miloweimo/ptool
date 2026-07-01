@@ -12,7 +12,10 @@
     "tauri:build": "tauri build",
     "tauri:build:linux": "tauri build -- --bundles deb,appimage",
     "tauri:android:init": "tauri android init",
-    "tauri:android:build": "tauri android build -- --aab",
+    "tauri:android:build": "tauri android build --apk --target aarch64",
+    "tauri:android:build:debug": "tauri android build --apk --debug --target aarch64",
+    "tauri:android:build:aab": "tauri android build --aab --target aarch64",
+    "tauri:android:install": "adb install -r dist/android/ptool-debug.apk",
     "tauri:ios:init": "tauri ios init",
     "tauri:ios:build": "tauri ios build"
   },
