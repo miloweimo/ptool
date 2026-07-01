@@ -3,6 +3,7 @@ import {
   downloadFiles,
   getBatchDownloadName,
 } from "./downloadFiles";
+import { formatError } from "./formatError";
 
 type SaveDialogFn = (options: {
   defaultPath: string;
@@ -48,12 +49,23 @@ export async function saveFilesViaTauri(
     ? [{ name: "ZIP 压缩包", extensions: ["zip"] }]
     : [{ name: "图片", extensions: [getExtension(files[0].name)] }];
 
-  const targetPath = await deps.save({ defaultPath, filters });
+  let targetPath: string | null;
+  try {
+    targetPath = await deps.save({ defaultPath, filters });
+  } catch (error) {
+    throw new Error(`打开保存对话框失败: ${formatError(error)}`);
+  }
   if (!targetPath) return;
 
   const blob = isBatch ? await buildZipBlob(files) : files[0];
   const bytes = new Uint8Array(await blob.arrayBuffer());
-  await deps.writeFile(targetPath, bytes);
+  try {
+    await deps.writeFile(targetPath, bytes);
+  } catch (error) {
+    throw new Error(
+      `写入文件失败 (${targetPath}): ${formatError(error)}`,
+    );
+  }
 }
 
 async function defaultTauriDeps(): Promise<{

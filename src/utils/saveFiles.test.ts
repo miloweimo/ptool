@@ -62,6 +62,18 @@ describe("saveFilesViaTauri", () => {
 
     expect(writeFile).not.toHaveBeenCalled();
   });
+
+  it("wraps writeFile errors with path context", async () => {
+    const save = vi.fn().mockResolvedValue("content://media/0");
+    const writeFile = vi.fn().mockRejectedValue(new Error("permission denied"));
+
+    await expect(
+      saveFilesViaTauri(
+        [new File(["x"], "one.png", { type: "image/png" })],
+        { save, writeFile },
+      ),
+    ).rejects.toThrow("写入文件失败 (content://media/0): permission denied");
+  });
 });
 
 describe("saveFiles", () => {

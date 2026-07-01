@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue";
+import { formatError } from "@/utils/formatError";
 import { saveFiles } from "@/utils/saveFiles";
 import { resizeImageFile } from "@/utils/resizeImage";
 
@@ -54,8 +55,8 @@ async function resizeImages() {
     revokePreviews(imagePreviews.value);
     imagePreviews.value = resizedFiles.map(toPreview);
   } catch (error) {
-    const message = error instanceof Error ? error.message : "图片缩放失败";
-    window.alert(message);
+    console.error("[ptool] resize failed", error);
+    window.alert(`图片缩放失败: ${formatError(error)}`);
   } finally {
     isResizing.value = false;
   }
@@ -70,8 +71,8 @@ async function downloadImages() {
   try {
     await saveFiles(imagePreviews.value.map((preview) => preview.file));
   } catch (error) {
-    const message = error instanceof Error ? error.message : "图片下载失败";
-    window.alert(message);
+    console.error("[ptool] save failed", error);
+    window.alert(`图片保存失败: ${formatError(error)}`);
   } finally {
     isDownloading.value = false;
   }

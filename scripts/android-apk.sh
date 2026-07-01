@@ -35,9 +35,7 @@ install_apk() {
 }
 
 install_waydroid() {
-  if [[ ! -f "$WAYDROID_APK" ]]; then
-    build x86_64
-  fi
+  build x86_64
   waydroid adb connect 2>/dev/null || true
   if adb devices 2>/dev/null | grep -q "device$"; then
     adb install -r "$WAYDROID_APK"
