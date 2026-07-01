@@ -14,8 +14,10 @@
     "tauri:android:init": "tauri android init",
     "tauri:android:build": "tauri android build --apk --target aarch64",
     "tauri:android:build:debug": "tauri android build --apk --debug --target aarch64",
+    "tauri:android:build:debug:waydroid": "tauri android build --apk --debug --target x86_64",
     "tauri:android:build:aab": "tauri android build --aab --target aarch64",
     "tauri:android:install": "adb install -r dist/android/ptool-debug.apk",
+    "tauri:android:waydroid": "./scripts/android-apk.sh waydroid",
     "tauri:ios:init": "tauri ios init",
     "tauri:ios:build": "tauri ios build"
   },
