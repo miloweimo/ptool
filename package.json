@@ -18,6 +18,8 @@
     "tauri:android:build:aab": "tauri android build --aab --target aarch64",
     "tauri:android:install": "adb install -r dist/android/ptool-debug.apk",
     "tauri:android:waydroid": "./scripts/android-apk.sh waydroid",
+    "tauri:android:waydroid:share": "./scripts/waydroid-share.sh open",
+    "tauri:android:waydroid:sync": "./scripts/waydroid-share.sh sync",
     "tauri:ios:init": "tauri ios init",
     "tauri:ios:build": "tauri ios build"
   },
